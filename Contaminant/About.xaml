@@ -1,0 +1,30 @@
+﻿<Window x:Class="Contaminant.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Contaminant"
+        mc:Ignorable="d"
+        Title="About" Height="450" Width="500" WindowStyle="None" AllowsTransparency="true" MouseDoubleClick="close">
+
+    <Window.Background>
+        <ImageBrush ImageSource="sv.png">
+        </ImageBrush>
+    </Window.Background>
+    <Grid>
+        <Image Source="biohazard_waste_pollution_nuclear_danger-512.png" Margin="199,118,265,304"/>
+        <Label x:Name="label" Content="Hello user!" HorizontalAlignment="Left" FontSize="17" Margin="170,94,0,0" VerticalAlignment="Top" Height="30" Width="108" FontFamily="Whimsy TT"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="116,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202" Height="49" FontFamily="Whimsy TT"><Run Text="  "/><Run Text="This is a program that simulates the movement of pollution in the "/><Run Text="pipe"/><Run Text="."/></TextBlock>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="101,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" RenderTransformOrigin="0.5,0.5" Height="61" FontFamily="Whimsy TT"><Run Text="  "/><Run Text="The length of the "/><Run Text="pipe "/><Run Text="is 100 meters and there are 4 sensors on it"/><Run Text=","/><Run Text=" located "/><Run Text=" "/><Run Text="at"/><Run Text="  the same distance (25 meters)."/></TextBlock>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="94,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" Height="78" RenderTransformOrigin="0.483,0.485" FontFamily="Whimsy TT"><Run Text=" "/><Run Text="By clicking on the "/><Run Text="&quot;S"/><Run Text="tart"/><Run Text="&quot;"/><Run Text=" and "/><Run Text="enter"/><Run Text="i"/><Run Text="ng"/><Run Text=" the necessary "/><Run Text="information,"/><Run Text=" you can see the"/><Run Text=" movement of pollution through the "/><Run Text="pipe"/><Run Text="."/></TextBlock>
+        <TextBlock x:Name="textBlock3" FontSize="12" HorizontalAlignment="Left" Margin="143,343,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" RenderTransformOrigin="0.5,0.5" FontFamily="Whimsy TT">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.307"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform><Run Text="Good "/><Run Text="luck"/><Run Text="!"/></TextBlock>
+    </Grid>
+</Window>

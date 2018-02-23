@@ -1,0 +1,181 @@
+﻿<Window x:Class="Contaminant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Contaminant"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="650" WindowStyle="None" AllowsTransparency="true">
+
+    <Window.Background>
+        <ImageBrush ImageSource="111.png">
+        </ImageBrush>
+    </Window.Background>
+
+    <Window.Resources>
+
+        <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="Transparent"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border SnapsToDevicePixels="True" Background="Black"  BorderThickness="0.8" BorderBrush="RosyBrown" Height="5"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderThumb" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <StackPanel Orientation="Vertical">
+                            <Path Data="M 0 0 L 8 0 L 4 6 Z"  Stroke="Black" Margin="-2,0,0,0" StrokeThickness="2" Fill="RosyBrown"></Path>
+                            <Line X1="0" Y1="0" X2="0" Y2="7" Stroke="Gray" StrokeThickness="1" Margin="2,0,0,0" StrokeDashArray="1.5,1.5"></Line>
+                            <TextBlock Foreground="Black" Margin="-2,30,0,0"  Text="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Slider}}}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="Slider"  TargetType="Slider">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TickBar  x:Name="TopTick"  Fill="LightGray" VerticalAlignment="Top"   SnapsToDevicePixels="True" Grid.Row="0" Placement="Top" Height="5" Visibility="Hidden"/>
+                <Border BorderBrush="Black"  BorderThickness="0,0,0,1" Visibility="Hidden"></Border>
+                <Border x:Name="TrackBackground" VerticalAlignment="Center" Margin="0,-10,0,0" BorderBrush="Black" Background="Goldenrod" Height="4"   Grid.Row="1"  BorderThickness="1"/>
+                <Track Grid.Row="1" x:Name="PART_Track" Margin="0,-10,0,0"  >
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumb}" Margin="0,-20,0,0" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+                <TextBlock Text="" Grid.Row="1" Margin="0,15,0,0"></TextBlock>
+                <TickBar x:Name="BottomTick" Fill="LightGray"   SnapsToDevicePixels="True" Grid.Row="2"   Placement="Bottom" Height="4" Visibility="Collapsed" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="TickPlacement"  Value="TopLeft">
+                    <Setter TargetName="TopTick" Property="Visibility"  Value="Visible" />
+                </Trigger>
+                <Trigger Property="TickPlacement" Value="BottomRight">
+                    <Setter TargetName="BottomTick"  Property="Visibility"  Value="Visible" />
+                </Trigger>
+                <Trigger Property="TickPlacement" Value="Both">
+                    <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="Horizontal_Slider" TargetType="Slider">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinWidth" Value="104" />
+                    <Setter Property="Template" Value="{StaticResource Slider}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="2,2,2,30" Background="{x:Null}">
+        <Image Source="095770-simple-red-glossy-icon-signs-warning-poison1.png" Margin="-42,-58,42,58"></Image>
+        <Grid Grid.Column="1" Margin="47,10,10,10">
+            <Button x:Name="back"   Content="Back" Foreground="White" Margin="202,371,321,109" Click="back_Click" FontFamily="Whimsy TT"/>
+            <Button x:Name="sel"  Content="Select"   Foreground="White"  Margin="202,341,321,139" Click="sel_Click" FontFamily="Whimsy TT" />
+            <Slider x:Name="sldr" Style="{StaticResource Horizontal_Slider}" VerticalAlignment="Center" TickFrequency="1" Minimum="1" Maximum="30" Value="15" Width="300" Margin="89,275,200,187" FontFamily="Whimsy TT">
+                <Slider.ToolTip>
+                    <ToolTip Background="Aqua"  FontFamily="Whimsy TT">
+                        Simulation run time (in seconds).
+                    </ToolTip>
+                </Slider.ToolTip>
+            </Slider>
+        </Grid>
+        <Image Source="C:\Users\Katri\Documents\R\RProject\RProject\s.png" Margin="313,206,623,340" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="365,123,0,0" TextWrapping="Wrap" Text="Concentration" VerticalAlignment="Top" Width="131"  PreviewTextInput="texbox_PreviewTextInput" GotKeyboardFocus="TextBox_GotKeyboardFocus" FontFamily="Whimsy TT">
+            <TextBox.ToolTip>
+                <ToolTip Background="Aqua"  FontFamily="Whimsy TT">
+                    Pollution concentration of the factory waste (maximum 100 milliliters).
+                </ToolTip>
+            </TextBox.ToolTip>
+        </TextBox>
+        <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="23" Margin="76,123,0,0" TextWrapping="Wrap" Text="Initial pollution" VerticalAlignment="Top" Width="120"  PreviewTextInput="texbox_PreviewTextInput" GotKeyboardFocus="TextBox4_GotKeyboardFocus" FontFamily="Whimsy TT" >
+            <TextBox.ToolTip>
+                <ToolTip Background="Aqua"  FontFamily="Whimsy TT">
+                    Initial pollution in the pipe (maximum 100 milliliters).
+                </ToolTip>
+            </TextBox.ToolTip>
+        </TextBox>
+        <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="23" Margin="222,235,0,0" TextWrapping="Wrap" Text="Velocity" VerticalAlignment="Top" Width="120" GotKeyboardFocus="TextBox2_GotKeyboardFocus" PreviewTextInput="texbox_PreviewTextInput"  FontFamily="Whimsy TT" FontSize="15">
+            <TextBox.ToolTip>
+                <ToolTip Background="Aqua"  FontFamily="Whimsy TT">
+                    The flow velocity in the pipe (minimum 0 meters in second, maximum 100 meters in second).
+                </ToolTip>
+            </TextBox.ToolTip>
+        </TextBox>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="86,161,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+            <TextBlock  FontFamily="Whimsy TT">Fixed value</TextBlock>
+            <TextBlock  FontFamily="Whimsy TT">x+1</TextBlock>
+            <TextBlock  FontFamily="Whimsy TT">cos(x)</TextBlock>
+            <TextBlock  FontFamily="Whimsy TT">sin(x)</TextBlock>
+            <TextBlock  FontFamily="Whimsy TT">square(x)</TextBlock>
+            <ComboBox.ToolTip>
+                <ToolTip Background="Aqua"  FontFamily="Whimsy TT">
+                    Pollution function
+                </ToolTip>
+            </ComboBox.ToolTip>
+        </ComboBox>
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="356,161,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+            <TextBlock  FontFamily="Whimsy TT">Every second</TextBlock>
+            <TextBlock FontFamily="Whimsy TT">t+2</TextBlock>
+            <TextBlock FontFamily="Whimsy TT">t^2</TextBlock>
+            <ComboBox.ToolTip>
+                <ToolTip Background="Aqua"  FontFamily="Whimsy TT">
+                    Frequency of the thrown away pollution.
+                </ToolTip>
+            </ComboBox.ToolTip>
+        </ComboBox>
+    </Grid>
+
+
+
+</Window>

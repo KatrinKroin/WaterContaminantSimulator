@@ -1,0 +1,222 @@
+﻿<Window x:Class="Contaminant.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:Contaminant"
+        mc:Ignorable="d"
+        Title="Main" Height="582" Width="1173" WindowStyle="None" AllowsTransparency="true" WindowStartupLocation="CenterScreen">
+
+
+    <Window.Background>
+        <ImageBrush ImageSource="3D.JPG">
+        </ImageBrush>
+    </Window.Background>
+
+    <Window.Resources>
+
+        <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="Transparent"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border SnapsToDevicePixels="True" Background="Red"  BorderThickness="0.8" BorderBrush="WhiteSmoke" Height="7"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderThumb" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <StackPanel Orientation="Vertical">
+                            <Path Data="M 0 0 L 8 0 L 4 6 Z"  Stroke="Black" Margin="-2,0,0,0" StrokeThickness="2" Fill="RosyBrown"></Path>
+                            <Line X1="0" Y1="0" X2="0" Y2="7" Stroke="Gray" StrokeThickness="1" Margin="2,0,0,0" StrokeDashArray="1.5,1.5"></Line>
+                            <TextBlock Foreground="Black" Margin="-2,30,0,0"  Text="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Slider}}}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="Slider"  TargetType="Slider">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TickBar  x:Name="TopTick"  Fill="LightGray" VerticalAlignment="Top"   SnapsToDevicePixels="True" Grid.Row="0" Placement="Top" Height="5" Visibility="Hidden"/>
+                <Border BorderBrush="Black"  BorderThickness="0,0,0,1" Visibility="Hidden"></Border>
+                <Border x:Name="TrackBackground" VerticalAlignment="Center" Margin="0,-10,0,0" BorderBrush="Wheat" Background="Blue" Height="6"   Grid.Row="1"  BorderThickness="0.8"/>
+                <Track Grid.Row="1" x:Name="PART_Track" Margin="0,-10,0,0"  >
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumb}" Margin="0,-20,0,0" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+                <TextBlock Text="" Grid.Row="1" Margin="0,15,0,0"></TextBlock>
+                <TickBar x:Name="BottomTick" Fill="LightGray"   SnapsToDevicePixels="True" Grid.Row="2"   Placement="Bottom" Height="4" Visibility="Collapsed" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="TickPlacement"  Value="TopLeft">
+                    <Setter TargetName="TopTick" Property="Visibility"  Value="Visible" />
+                </Trigger>
+                <Trigger Property="TickPlacement" Value="BottomRight">
+                    <Setter TargetName="BottomTick"  Property="Visibility"  Value="Visible" />
+                </Trigger>
+                <Trigger Property="TickPlacement" Value="Both">
+                    <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="Horizontal_Slider" TargetType="Slider">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinWidth" Value="104" />
+                    <Setter Property="Template" Value="{StaticResource Slider}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Image x:Name="start_here_tips_png" Margin="720,153,10,303" Source="start-here-tips.png" Stretch="Fill" MouseDown="Picture_MouseDown"/>
+        <Image x:Name="_009618_simple_red_glossy_icon_arrows_arrowhead2_right_png_Copy2" Margin="600,298,497,183" Source="009618-simple-red-glossy-icon-arrows-arrowhead2-right.png" Stretch="Fill" RenderTransformOrigin="0.255,0.387" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="89.705"/>
+                    <TranslateTransform X="49.924" Y="-11.756"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="_009618_simple_red_glossy_icon_arrows_arrowhead2_right_png_Copy1" Margin="422,393,673,88" Source="009618-simple-red-glossy-icon-arrows-arrowhead2-right.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="89.705"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="_009618_simple_red_glossy_icon_arrows_arrowhead2_right_png_Copy" Margin="168,355,927,126" Source="009618-simple-red-glossy-icon-arrows-arrowhead2-right.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="89.705"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="_009618_simple_red_glossy_icon_arrows_arrowhead2_right_png_Copy3" Margin="105,232,996,248" Source="009618-simple-red-glossy-icon-arrows-arrowhead2-right.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="89.705"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="red_x_png" Margin="0,0,1096,505" Source="red-x.png" Stretch="Fill" MouseDown="X_MouseDown">
+            <Image.ToolTip>
+                <ToolTip Background="Aqua" FontFamily="Whimsy TT">
+                    Close
+                </ToolTip>
+            </Image.ToolTip>
+        </Image>
+
+        <Image gif:ImageBehavior.AnimatedSource="C:\Users\Katri\Documents\Visual Studio 2015\Projects\Contaminant\Contaminant\Animated-gif-spinning-question-mark-picture-moving.gif"  Margin="82,12,1054,519" Stretch="Fill" MouseDown="Y_MouseDown">
+            <Image.ToolTip>
+                <ToolTip Background="Aqua" FontFamily="Whimsy TT" >
+                    Help
+                </ToolTip>
+            </Image.ToolTip>
+        </Image>
+
+        <Image x:Name="br" Margin="631,248,489,289" Source="image (1)cp.png" Stretch="Fill" RenderTransformOrigin="0.537,0.546">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform  x:Name="ImageScale" ScaleY="1" ScaleX="1" CenterX="0" CenterY="0"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-1.713"/>
+                    <TranslateTransform X="0.059" Y="-0.059"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+
+        </Image>
+        <Slider x:Name="sldr" Style="{StaticResource Horizontal_Slider}" VerticalAlignment="Center" TickFrequency="1" Minimum="0" Maximum="30" Value="0" Margin="348,524,316,22" ValueChanged="Slider_ValueChanged" Thumb.DragStarted="Slider_DragStarted" Thumb.DragCompleted="Slider_DragCompleted" FontFamily="Whimsy TT"/>
+        <Image x:Name="br1" Margin="438,345,682,193" Source="image (1)cp1.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform  x:Name="im1" ScaleY="1" ScaleX="1" CenterX="0" CenterY="0"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-1.713"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+
+        </Image>
+        <Image x:Name="br3" Margin="186,311,934,227" Source="image (1)cp2.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform  x:Name="im2" ScaleY="1" ScaleX="1" CenterX="0" CenterY="0"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-1.713"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+
+        </Image>
+        <Image x:Name="br2" Margin="119,184,1001,354" Source="image (1)cp3.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform  x:Name="im3" ScaleY="1" ScaleX="1" CenterX="0" CenterY="0"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-1.713"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+
+        </Image>
+        <TextBlock x:Name="t2" HorizontalAlignment="Left" Margin="452,360,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="50" Height="18" FontFamily="Whimsy TT"/>
+        <TextBlock x:Name="t1" HorizontalAlignment="Left" Margin="646,263,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="49" Height="16" FontFamily="Whimsy TT"/>
+        <TextBlock x:Name="t4" HorizontalAlignment="Left" Margin="133,199,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="53" Height="19" FontFamily="Whimsy TT"/>
+        <TextBlock x:Name="t3" HorizontalAlignment="Left" Margin="199,326,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="49" Height="18" FontFamily="Whimsy TT"/>
+
+    </Grid>
+</Window>
